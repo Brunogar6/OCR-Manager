@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Document;
+use Illuminate\Support\Facades\Storage;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class DocumentObserver
@@ -17,6 +18,9 @@ class DocumentObserver
         $tesseract = $tesseract->run();
 
         $document->name = $tesseract;
+
+        Storage::move('public/' . $document->archive, 'public/' . $document->name . '.png');
+        $document->archive = $document->name . '.png';
     }
 
     /**
