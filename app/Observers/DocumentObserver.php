@@ -12,7 +12,7 @@ class DocumentObserver
      */
     public function creating(Document $document): void
     {
-        $tesseract = new TesseractOCR(storage_path('app/public/' . $document->image));
+        $tesseract = new TesseractOCR(storage_path('app/public/' . $document->select));
 
         $tesseract = $tesseract->run();
 
