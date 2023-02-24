@@ -31,7 +31,7 @@ class Document extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'name',
     ];
 
     /**
@@ -44,9 +44,17 @@ class Document extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name')->readonly(true),
-            AdvancedImage::make('Select')->croppable(),
+            Text::make('Name')
+                ->readonly(true)
+                ->hideWhenCreating(),
+            AdvancedImage::make('Select')
+                ->croppable()
+                ->disableDownload()
+                ->hideFromIndex()
+                ->hideWhenUpdating()
+                ->hideFromDetail(),
             File::make('Archive')
+                ->hideWhenUpdating()
         ];
     }
 
